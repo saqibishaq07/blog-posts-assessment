@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Project Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This React project, built with TypeScript, Material-UI, and React Query, is designed to showcase a modern web application with advanced features such as data fetching, search functionality, pagination, and filtration. The project utilizes the strengths of TypeScript for static typing, Material-UI for a sleek UI, and React Query for efficient data fetching.
 
-## Available Scripts
+# Features
 
-In the project directory, you can run:
+1. TypeScript Integration
+   The project is built with TypeScript, providing static typing to enhance code quality and maintainability.
 
-### `npm start`
+2. Material-UI Components
+   Material UI is used to create a consistent and visually appealing user interface. It includes various components such as buttons, Cards, Avatar, and CirculrProgress.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. React Query for Data Fetching
+   The application leverages React Query to efficiently manage data fetching, caching, and state management. This ensures optimal performance and a seamless user experience. A custom hook named `useGetUsers()` made with react-query is being used to fetch users, the limit is currently 50 datasets.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+4. Search
+   The search feature is designed to provide instant and relevant results. Its functionality is very simple for every letter the user types in it, it filters the data array and sees which user's first name string includes the typed search and returns that user. it can be enhanced in a way that it will match other fields also like last name , dob , nat, email , etc
 
-### `npm test`
+5. Pagination
+   To handle large datasets, the application implements a very simple and elegant pagination with a button as per design, with every click on the button it just slices more posts from the data array and shows. The button will be disabled once all posts are visible.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+6. Filtration
+   Users can filter posts based on gender. This feature allows for a more customized and focused view of the information.
 
-### `npm run build`
+# Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To run this project locally, follow these steps:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Clone the repository:
+`git clone https://github.com/your-username/your-react-app.git`
+Navigate to the project directory:
+`cd your-react-app`
+Install dependencies:
+`npm install`
+Start the development server:
+`npm start`
+This will open the app in your default browser at `http://localhost:3000`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Project Structure
 
-### `npm run eject`
+The project structure follows the conventions of a typical React app created with create-react-app & typescript. Key directories and files include:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+src: Contains the source code of the application.
+assets: Holds labels used commonly in the app.
+components: Holds React components.
+App.js: A main component that renders other components and handles routing.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Feedback and Contributions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Feedback and contributions are welcome! If you have suggestions or find issues, feel free to open an issue or submit a pull request.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# License
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License.
