@@ -49,9 +49,9 @@ const ViewMoreButton = styled(Button)({
 
 const Listing: React.FC<IListingProps> = ({ showFiltered, search }) => {
   const [usersList, setUsersList] = useState<IUser[]>([]);
-  const [genderFilter, setGenderFilter] = useState<string | null>(() => {
-    return localStorage.getItem("gender") ?? null;
-  });
+  const [genderFilter, setGenderFilter] = useState<string>(
+    localStorage.getItem("gender") ?? ""
+  );
   const [viewMoreCount, setViewMoreCount] = useState(0);
 
   // getting only 50 records to meet the functional requirement, we can add more if needed.
@@ -59,7 +59,9 @@ const Listing: React.FC<IListingProps> = ({ showFiltered, search }) => {
 
   // setting local storage to persist gender info
   useEffect(() => {
-    localStorage.setItem("gender", genderFilter as string);
+    if (genderFilter !== "") {
+      localStorage.setItem("gender", genderFilter);
+    }
   }, [genderFilter]);
 
   //  handled pagination with simple technique
@@ -67,7 +69,7 @@ const Listing: React.FC<IListingProps> = ({ showFiltered, search }) => {
   //  i decided to add 9 more on every click on see more article button
   // see more button will be disabled once all record shown
   const handleViewMore = () => {
-    if (genderFilter) {
+    if (genderFilter !== "") {
       setUsersList(
         data
           ?.slice(0, viewMoreCount + 9)
@@ -80,7 +82,7 @@ const Listing: React.FC<IListingProps> = ({ showFiltered, search }) => {
   };
 
   const filterUserList = (user: IUser) => {
-    if (genderFilter) {
+    if (genderFilter !== "") {
       if (search.toLowerCase() !== "") {
         return (
           user.name.first.toLowerCase().includes(search) &&
@@ -94,6 +96,7 @@ const Listing: React.FC<IListingProps> = ({ showFiltered, search }) => {
       return true;
     }
   };
+  console.log("genderFilter", genderFilter);
   return !isLoading ? (
     <>
       <FilterContainer>
@@ -104,9 +107,7 @@ const Listing: React.FC<IListingProps> = ({ showFiltered, search }) => {
             id="gender-filter"
             value={genderFilter || ""}
             label="Gender"
-            onChange={(e) =>
-              setGenderFilter((e.target.value as string) || null)
-            }
+            onChange={(e) => setGenderFilter(e.target.value as string)}
           >
             <MenuItem value="">All</MenuItem>
             <MenuItem value="male">Male</MenuItem>
