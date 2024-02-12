@@ -49,30 +49,17 @@ const ViewMoreButton = styled(Button)({
 
 const Listing: React.FC<IListingProps> = ({ showFiltered, search }) => {
   const [usersList, setUsersList] = useState<IUser[]>([]);
-  const [genderFilter, setGenderFilter] = useState<string | null>(null);
+  const [genderFilter, setGenderFilter] = useState<string | null>(() => {
+    return localStorage.getItem("gender") ?? null;
+  });
   const [viewMoreCount, setViewMoreCount] = useState(0);
 
   // getting only 50 records to meet the functional requirement, we can add more if needed.
-  const { data, isLoading, isError } = useGetUsers();
+  const { data, isLoading } = useGetUsers();
 
-  // slicing data array to show only 9 record as per design on mount
+  // setting local storage to persist gender info
   useEffect(() => {
-    if (!isLoading) {
-      setUsersList(data?.slice(0, 9)!);
-    }
-  }, [data]);
-
-  // filtering data as per gender filter
-  useEffect(() => {
-    if (genderFilter) {
-      setUsersList(
-        data
-          ?.slice(viewMoreCount, 9)
-          .filter((user) => user.gender === genderFilter)!
-      );
-    } else {
-      setUsersList(usersList);
-    }
+    localStorage.setItem("gender", genderFilter as string);
   }, [genderFilter]);
 
   //  handled pagination with simple technique
@@ -90,6 +77,22 @@ const Listing: React.FC<IListingProps> = ({ showFiltered, search }) => {
       setUsersList(data?.slice(0, viewMoreCount + 9)!);
     }
     setViewMoreCount(viewMoreCount + 9);
+  };
+
+  const filterUserList = (user: IUser) => {
+    if (genderFilter) {
+      if (search.toLowerCase() !== "") {
+        return (
+          user.name.first.toLowerCase().includes(search) &&
+          user.gender === genderFilter
+        );
+      }
+      return user.gender === genderFilter;
+    } else if (search.toLowerCase() !== "") {
+      return user.name.first.toLowerCase().includes(search);
+    } else {
+      return true;
+    }
   };
   return !isLoading ? (
     <>
@@ -113,12 +116,9 @@ const Listing: React.FC<IListingProps> = ({ showFiltered, search }) => {
       </FilterContainer>
       {!isLoading && (
         <CardContainer>
-          {usersList
-            ?.filter((user) =>
-              search.toLowerCase() === ""
-                ? user
-                : user.name.first.toLowerCase().includes(search)
-            )
+          {data
+            ?.slice(0, viewMoreCount + 9)
+            .filter((user) => filterUserList(user))
             .map((user) => (
               <Card
                 key={user.login.uuid}

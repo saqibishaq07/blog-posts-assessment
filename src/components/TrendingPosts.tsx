@@ -14,7 +14,7 @@ const CardContainer = styled(Box)({
 
 const TrendingPosts: React.FC<ITrendingProps> = ({ search }) => {
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
-  const { data, isLoading, isError } = useGetUsers();
+  const { data, isLoading } = useGetUsers();
 
   useEffect(() => {
     if (!isLoading) {
